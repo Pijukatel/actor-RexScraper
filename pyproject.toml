@@ -1,0 +1,92 @@
+[tool.poetry]
+name = "actor-rexscraper"
+version = "0.1.0"
+description = ""
+authors = ["Josef Prochazka <josef.prochazka@apify.com>"]
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.12"
+setuptools = "^75.3.0"
+apify = "^2.0.1"
+
+
+[tool.poetry.group.dev.dependencies]
+mypy = "^1.13.0"
+ruff = "^0.7.2"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
+
+
+[tool.ruff]
+line-length = 120
+
+[tool.ruff.lint]
+select = ["ALL"]
+ignore = [
+    "ANN101",   # Missing type annotation for `self` in method
+    "ANN102",   # Missing type annotation for `{name}` in classmethod
+    "ANN401",   # Dynamically typed expressions (typing.Any) are disallowed in {filename}
+    "ASYNC109", # Async function definition with a `timeout` parameter
+    "BLE001",   # Do not catch blind exception
+    "C901",     # `{name}` is too complex
+    "COM812",   # This rule may cause conflicts when used with the formatter
+    "D100",     # Missing docstring in public module
+    "D104",     # Missing docstring in public package
+    "D107",     # Missing docstring in `__init__`
+    "EM",       # flake8-errmsg
+    "G004",     # Logging statement uses f-string
+    "ISC001",   # This rule may cause conflicts when used with the formatter
+    "FIX",      # flake8-fixme
+    "PGH003",   # Use specific rule codes when ignoring type issues
+    "PLR0911",  # Too many return statements
+    "PLR0913",  # Too many arguments in function definition
+    "PLR0915",  # Too many statements
+    "PTH",      # flake8-use-pathlib
+    "PYI034",   # `__aenter__` methods in classes like `{name}` usually return `self` at runtime
+    "PYI036",   # The second argument in `__aexit__` should be annotated with `object` or `BaseException | None`
+    "S102",     # Use of `exec` detected
+    "S105",     # Possible hardcoded password assigned to
+    "S106",     # Possible hardcoded password assigned to argument: "{name}"
+    "S301",     # `pickle` and modules that wrap it can be unsafe when used to deserialize untrusted data, possible security issue
+    "S303",     # Use of insecure MD2, MD4, MD5, or SHA1 hash function
+    "S311",     # Standard pseudo-random generators are not suitable for cryptographic purposes
+    "TD002",    # Missing author in TODO; try: `# TODO(<author_name>): ...` or `# TODO @<author_name>: ...
+    "TRY003",   # Avoid specifying long messages outside the exception class
+]
+
+[tool.ruff.format]
+quote-style = "single"
+indent-style = "space"
+
+[tool.ruff.lint.flake8-quotes]
+docstring-quotes = "double"
+inline-quotes = "single"
+
+[tool.ruff.lint.pydocstyle]
+convention = "google"
+
+[tool.ruff.lint.isort]
+known-first-party = ["apify"]
+
+[tool.pytest.ini_options]
+addopts = "-ra"
+asyncio_mode = "auto"
+timeout = 1200
+
+[tool.mypy]
+python_version = "3.12"
+plugins = ["pydantic.mypy"]
+files = ["src"]
+check_untyped_defs = true
+disallow_incomplete_defs = true
+disallow_untyped_calls = true
+disallow_untyped_decorators = true
+disallow_untyped_defs = true
+no_implicit_optional = true
+warn_redundant_casts = true
+warn_return_any = true
+warn_unreachable = true
+warn_unused_ignores = true
