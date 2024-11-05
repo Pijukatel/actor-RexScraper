@@ -1,0 +1,7 @@
+{
+	"actorSpecification": 1,
+	"name": "RexScraper",
+	"version": "0.1",
+	"buildTag": "latest",
+	"environmentVariables": {}
+}

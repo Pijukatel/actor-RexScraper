@@ -9,6 +9,7 @@ readme = "README.md"
 python = "^3.12"
 setuptools = "^75.3.0"
 apify = "^2.0.1"
+crawlee = {extras = ["beautifulsoup"], version = "^0.4.0"}
 
 
 [tool.poetry.group.dev.dependencies]
