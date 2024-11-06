@@ -37,7 +37,8 @@ def get_product_details(context: BeautifulSoupCrawlingContext, category: str) ->
     """Scrape details of specific product."""
     soup = context.soup
     details = {
-        'sku': soup.find('span', {'itemprop': 'name'}).text,
+        'name': soup.find('span', {'itemprop': 'name'}).text,
+        'sku': soup.find('div', {'itemprop': 'sku'}).text,
         'category': category,
         'price': soup.find('div', 'product-info-price').find('span', 'price').text,
         'imageUrl': soup.select('.gallery-placeholder__image')[0]['src'].split('?')[0],
@@ -70,7 +71,7 @@ async def main() -> None:
     async with Actor:
         actor_input = await Actor.get_input() or {}
         max_requests_per_crawl = actor_input.get('max_requests_per_crawl', 30)
-        desired_categories = {category.lower() for category in actor_input.get('categories', [])}
+        desired_categories = {category.lower() for category in actor_input.get('desired_categories', [])}
         include_keywords = {word.lower() for word in actor_input.get('include_keywords', [])}
         exclude_keywords = {word.lower() for word in actor_input.get('exclude_keywords', [])}
         Actor.log.info(f'{desired_categories=}, {include_keywords=},{exclude_keywords=},{max_requests_per_crawl=}')
