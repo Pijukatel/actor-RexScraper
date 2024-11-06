@@ -3,5 +3,8 @@
 	"name": "RexScraper",
 	"version": "0.1",
 	"buildTag": "latest",
-	"environmentVariables": {}
+	"environmentVariables": {},
+	"storages": {
+        "dataset": "./dataset_schema.json"
+    }
 }
