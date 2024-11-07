@@ -8,28 +8,21 @@
             "type": "array",
             "description": "Product categories that will be included. (If no categories are explicitly specified, then it will consider all categories.)",
             "prefill": ["Herramientas"],
-            "editor": "json"
+            "editor": "stringList"
         },
         "include_keywords": {
             "title": "Included keywords(or terms) for products",
             "type": "array",
             "description": "Only products that match at least of of the terms will be included in search. Term match is used on all scraped attributes. (If no terms are specified, then all products are selected.)",
             "prefill": ["Taladro", "Soldadora"],
-            "editor": "json"
+            "editor": "stringList"
         },
         "exclude_keywords": {
             "title": "Excluded keywords(or terms) for products",
             "type": "array",
             "description": "Products that match any of the excluded terms on any of the product details will be filtered out, even if they match include keyword. (If no terms are specified, then no products are excluded this way.)",
             "prefill": ["Stanley"],
-            "editor": "json"
-        },
-        "max_requests_per_crawl": {
-            "title": "Maximum requests per crawl",
-            "type": "integer",
-            "description": "Maximum number of http requests that the crawler will send. (Set small value during actor testing.)",
-            "default": 10,
-            "editor": "number"
+            "editor": "stringList"
         }
     }
 }

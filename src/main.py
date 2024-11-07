@@ -4,7 +4,7 @@ import asyncio
 
 from crawlee.beautifulsoup_crawler import BeautifulSoupCrawler, BeautifulSoupCrawlingContext
 
-from apify import Actor
+from apify import Actor, ProxyConfiguration
 
 ProductDetails = dict[str, str]
 
@@ -70,13 +70,12 @@ async def main() -> None:
     """Main entry point for RexScraper."""
     async with Actor:
         actor_input = await Actor.get_input() or {}
-        max_requests_per_crawl = actor_input.get('max_requests_per_crawl', 30)
         desired_categories = {category.lower() for category in actor_input.get('desired_categories', [])}
         include_keywords = {word.lower() for word in actor_input.get('include_keywords', [])}
         exclude_keywords = {word.lower() for word in actor_input.get('exclude_keywords', [])}
-        Actor.log.info(f'{desired_categories=}, {include_keywords=},{exclude_keywords=},{max_requests_per_crawl=}')
+        Actor.log.info(f'{desired_categories=}, {include_keywords=},{exclude_keywords=}')
 
-        crawler = BeautifulSoupCrawler(max_requests_per_crawl=max_requests_per_crawl, _logger=Actor.log)
+        crawler = BeautifulSoupCrawler(_logger=Actor.log, proxy_configuration=ProxyConfiguration())
 
         @crawler.router.default_handler
         async def request_handler(context: BeautifulSoupCrawlingContext) -> None:
