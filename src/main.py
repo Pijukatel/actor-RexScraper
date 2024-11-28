@@ -5,7 +5,7 @@ import asyncio
 from crawlee import ConcurrencySettings
 from crawlee.beautifulsoup_crawler import BeautifulSoupCrawler, BeautifulSoupCrawlingContext
 
-from apify import Actor, ProxyConfiguration
+from apify import Actor
 
 ProductDetails = dict[str, str]
 
