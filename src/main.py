@@ -5,7 +5,7 @@ import asyncio
 from crawlee import ConcurrencySettings
 from crawlee.beautifulsoup_crawler import BeautifulSoupCrawler, BeautifulSoupCrawlingContext
 
-from apify import Actor
+from apify import Actor, ProxyConfiguration
 
 ProductDetails = dict[str, str]
 
@@ -76,9 +76,11 @@ async def main() -> None:
         exclude_keywords = {word.lower() for word in actor_input.get('exclude_keywords', [])}
         Actor.log.info(f'{desired_categories=}, {include_keywords=},{exclude_keywords=}')
 
-        crawler = BeautifulSoupCrawler(_logger=Actor.log,
-                                       proxy_configuration=await Actor.create_proxy_configuration(),
-                                       concurrency_settings=ConcurrencySettings(desired_concurrency=10))
+        crawler = BeautifulSoupCrawler(
+            _logger=Actor.log,
+            proxy_configuration=(await Actor.create_proxy_configuration()) or ProxyConfiguration(),
+            concurrency_settings=ConcurrencySettings(desired_concurrency=10),
+        )
 
         @crawler.router.default_handler
         async def request_handler(context: BeautifulSoupCrawlingContext) -> None:
